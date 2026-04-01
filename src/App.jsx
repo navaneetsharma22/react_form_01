@@ -6,6 +6,7 @@ const initialFormData = {
   firstName: '',
   lastName: '',
   email: '',
+  phone: '',
   comments: '',
   isVisible: false,
   mode: 'Online',
@@ -73,6 +74,8 @@ function App() {
   const [registrations, setRegistrations] = useState([]);
   const [backendReady, setBackendReady] = useState(false);
   const [showcaseIndex, setShowcaseIndex] = useState(0);
+  const [expandedRegistrationId, setExpandedRegistrationId] = useState(null);
+  const [deletingRegistrationId, setDeletingRegistrationId] = useState(null);
 
   const shellRef = useRef(null);
   const formRef = useRef(null);
@@ -133,7 +136,7 @@ function App() {
           throw new Error('Unable to load registrations');
         }
 
-        const data = await response.json();
+        const data = await readJsonResponse(response);
         setRegistrations(data);
       } catch {
         setBackendReady(false);
@@ -180,14 +183,34 @@ function App() {
       formData.firstName,
       formData.lastName,
       formData.email,
+      formData.phone,
       formData.comments,
       formData.mode,
       formData.favCar,
       formData.isVisible,
     ].filter(Boolean).length /
-      7) *
+      8) *
       100,
   );
+
+  async function readJsonResponse(response) {
+    const raw = await response.text();
+    const contentType = response.headers.get('content-type') || '';
+
+    if (!contentType.includes('application/json')) {
+      throw new Error(
+        response.ok
+          ? 'The server returned an unexpected response instead of JSON.'
+          : 'The API route is unavailable or misconfigured.',
+      );
+    }
+
+    try {
+      return JSON.parse(raw);
+    } catch {
+      throw new Error('The server returned invalid JSON.');
+    }
+  }
 
   function changeHandler(event) {
     const { name, value, checked, type } = event.target;
@@ -213,7 +236,7 @@ function App() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const data = await readJsonResponse(response);
 
       if (!response.ok) {
         throw new Error(data.message || 'Submission failed');
@@ -243,6 +266,34 @@ function App() {
     }
   }
 
+  async function handleDeleteRegistration(registrationId) {
+    setError('');
+    setMessage('');
+    setDeletingRegistrationId(registrationId);
+
+    try {
+      const response = await fetch(`/api/registrations?id=${registrationId}`, {
+        method: 'DELETE',
+      });
+
+      const data = await readJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to delete registration');
+      }
+
+      setRegistrations((current) =>
+        current.filter((registration) => registration.id !== registrationId),
+      );
+      setExpandedRegistrationId((current) => (current === registrationId ? null : current));
+      setMessage(data.message);
+    } catch (deleteError) {
+      setError(deleteError.message || 'Unable to delete registration');
+    } finally {
+      setDeletingRegistrationId(null);
+    }
+  }
+
   function resetForm() {
     setFormData(initialFormData);
     setIsSubmitted(false);
@@ -253,6 +304,9 @@ function App() {
   const themeClass = isDarkMode ? 'theme-dark' : 'theme-light';
   const fullName = `${formData.firstName} ${formData.lastName}`.trim() || 'Future driver';
   const showcaseVehicle = vehicleOptions[showcaseIndex];
+  const selectedRegistration = registrations.find(
+    (registration) => registration.id === expandedRegistrationId,
+  );
 
   return (
     <main ref={shellRef} className={`app-shell ${themeClass}`}>
@@ -270,54 +324,6 @@ function App() {
               The interface now persists every registration through an API, shows
               backend status, and displays the latest saved applications in real time.
             </p>
-
-            <div ref={statRef} className="hero-stat">
-              <span>Completion</span>
-              <strong>{completion}%</strong>
-              <div className="progress-track">
-                <div className="progress-fill" style={{ width: `${completion}%` }} />
-              </div>
-            </div>
-
-            <div className="hero-tags">
-              <span>{backendReady ? 'Backend connected' : 'Backend offline'}</span>
-              <span>Express API</span>
-              <span>Local persistence</span>
-            </div>
-
-            <div className="preview-card">
-              <p className="preview-label">Registration preview</p>
-              <h2>{fullName}</h2>
-              <div className="preview-meta">
-                <span>{formData.email || 'email pending'}</span>
-                <span>{formData.mode} Mode</span>
-              </div>
-              <div className="preview-vehicle">
-                <span>Preferred vehicle</span>
-                <strong>
-                  {vehicleOptions.find((vehicle) => vehicle.value === formData.favCar)?.label}
-                </strong>
-              </div>
-            </div>
-
-            <div className="hero-details">
-              <div className="detail-card">
-                <span className="detail-label">Workflow</span>
-                <strong>Form to API to MongoDB</strong>
-                <p>
-                  Every submission is validated in Express and stored in the database for
-                  instant retrieval.
-                </p>
-              </div>
-              <div className="detail-card">
-                <span className="detail-label">Why this project works</span>
-                <strong>Modern UI with real persistence</strong>
-                <p>
-                  Users can preview entries, submit cleanly, and review recent registrations
-                  without leaving the page.
-                </p>
-              </div>
-            </div>
 
             <div className="vehicle-showcase">
               <div className="showcase-copy">
@@ -348,6 +354,55 @@ function App() {
                     className={index === showcaseIndex ? 'showcase-dot active' : 'showcase-dot'}
                   />
                 ))}
+              </div>
+            </div>
+
+            <div ref={statRef} className="hero-stat">
+              <span>Completion</span>
+              <strong>{completion}%</strong>
+              <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${completion}%` }} />
+              </div>
+            </div>
+
+            <div className="hero-tags">
+              <span>{backendReady ? 'Backend connected' : 'Backend offline'}</span>
+              <span>Express API</span>
+              <span>Local persistence</span>
+            </div>
+
+            <div className="preview-card">
+              <p className="preview-label">Registration preview</p>
+              <h2>{fullName}</h2>
+              <div className="preview-meta">
+                <span>{formData.email || 'email pending'}</span>
+                <span>{formData.phone || 'phone pending'}</span>
+                <span>{formData.mode} Mode</span>
+              </div>
+              <div className="preview-vehicle">
+                <span>Preferred vehicle</span>
+                <strong>
+                  {vehicleOptions.find((vehicle) => vehicle.value === formData.favCar)?.label}
+                </strong>
+              </div>
+            </div>
+
+            <div className="hero-details">
+              <div className="detail-card">
+                <span className="detail-label">Workflow</span>
+                <strong>Form to API to MongoDB</strong>
+                <p>
+                  Every submission is validated in Express and stored in the database for
+                  instant retrieval.
+                </p>
+              </div>
+              <div className="detail-card">
+                <span className="detail-label">Why this project works</span>
+                <strong>Modern UI with real persistence</strong>
+                <p>
+                  Users can preview entries, submit cleanly, and review recent registrations
+                  without leaving the page.
+                </p>
               </div>
             </div>
           </div>
@@ -404,6 +459,18 @@ function App() {
                   name="email"
                   placeholder="aarav@example.com"
                   value={formData.email}
+                  onChange={changeHandler}
+                  required
+                />
+              </label>
+
+              <label className="field-card field-card-wide">
+                <span>Phone number</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="+91 98765 43210"
+                  value={formData.phone}
                   onChange={changeHandler}
                   required
                 />
@@ -497,41 +564,6 @@ function App() {
             </div>
           </form>
 
-          {(isSubmitted || completion > 20) && (
-            <section ref={summaryRef} className="summary-panel">
-              <div className="summary-header">
-                <div>
-                  <p className="panel-kicker">Live snapshot</p>
-                  <h3>Application summary</h3>
-                </div>
-                <span className="summary-badge">{formData.isVisible ? 'Visible' : 'Private'}</span>
-              </div>
-
-              <div className="summary-grid">
-                <article>
-                  <span>Name</span>
-                  <strong>{fullName}</strong>
-                </article>
-                <article>
-                  <span>Email</span>
-                  <strong>{formData.email || 'Pending'}</strong>
-                </article>
-                <article>
-                  <span>Mode</span>
-                  <strong>{formData.mode}</strong>
-                </article>
-                <article>
-                  <span>Vehicle</span>
-                  <strong>
-                    {vehicleOptions.find((vehicle) => vehicle.value === formData.favCar)?.label}
-                  </strong>
-                </article>
-              </div>
-
-              {formData.comments && <p className="summary-notes">{formData.comments}</p>}
-            </section>
-          )}
-
           <section ref={feedRef} className="backend-feed">
             <div className="summary-header">
               <div>
@@ -554,12 +586,30 @@ function App() {
                     <span>{new Date(registration.createdAt).toLocaleString()}</span>
                     <strong>{`${registration.firstName} ${registration.lastName}`}</strong>
                     <p>{registration.email}</p>
+                    <p>{registration.phone || 'No phone number'}</p>
                     <div className="backend-meta">
                       <span>{registration.mode}</span>
                       <span>
                         {vehicleOptions.find((vehicle) => vehicle.value === registration.favCar)
                           ?.label || registration.favCar}
                       </span>
+                    </div>
+                    <div className="backend-actions">
+                      <button
+                        type="button"
+                        className="backend-toggle"
+                        onClick={() => setExpandedRegistrationId(registration.id)}
+                      >
+                        View details
+                      </button>
+                      <button
+                        type="button"
+                        className="backend-delete"
+                        disabled={deletingRegistrationId === registration.id}
+                        onClick={() => handleDeleteRegistration(registration.id)}
+                      >
+                        {deletingRegistrationId === registration.id ? 'Deleting...' : 'Delete'}
+                      </button>
                     </div>
                   </article>
                 ))}
@@ -568,6 +618,79 @@ function App() {
           </section>
         </section>
       </section>
+
+      {selectedRegistration && (
+        <div
+          className="details-modal-backdrop"
+          onClick={() => setExpandedRegistrationId(null)}
+          role="presentation"
+        >
+          <section
+            className="details-modal"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="registration-details-title"
+          >
+            <div className="details-modal-header">
+              <div>
+                <p className="panel-kicker">Registration details</p>
+                <h3 id="registration-details-title">
+                  {selectedRegistration.firstName} {selectedRegistration.lastName}
+                </h3>
+              </div>
+              <button
+                type="button"
+                className="details-modal-close"
+                onClick={() => setExpandedRegistrationId(null)}
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="backend-detail-grid details-modal-grid">
+              <article>
+                <span>Name</span>
+                <strong>
+                  {selectedRegistration.firstName} {selectedRegistration.lastName}
+                </strong>
+              </article>
+              <article>
+                <span>Email</span>
+                <strong>{selectedRegistration.email}</strong>
+              </article>
+              <article>
+                <span>Phone</span>
+                <strong>{selectedRegistration.phone}</strong>
+              </article>
+              <article>
+                <span>Mode</span>
+                <strong>{selectedRegistration.mode}</strong>
+              </article>
+              <article>
+                <span>Vehicle</span>
+                <strong>
+                  {vehicleOptions.find((vehicle) => vehicle.value === selectedRegistration.favCar)
+                    ?.label || selectedRegistration.favCar}
+                </strong>
+              </article>
+              <article>
+                <span>Visibility</span>
+                <strong>{selectedRegistration.isVisible ? 'Visible' : 'Private'}</strong>
+              </article>
+              <article>
+                <span>Saved at</span>
+                <strong>{new Date(selectedRegistration.createdAt).toLocaleString()}</strong>
+              </article>
+            </div>
+
+            <div className="backend-notes details-modal-notes">
+              <span>Notes</span>
+              <p>{selectedRegistration.comments || 'No extra notes provided.'}</p>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   );
 }

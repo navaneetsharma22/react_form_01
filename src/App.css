@@ -149,7 +149,7 @@
   padding: 1.2rem;
   display: grid;
   gap: 0.55rem;
-  margin-top: calc(3.2rem + 25px);
+  margin-top: 0.15rem;
 }
 
 .hero-stat span,
@@ -610,6 +610,134 @@
   gap: 0.45rem;
 }
 
+.backend-toggle {
+  width: fit-content;
+  margin-top: 0.35rem;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 600;
+}
+
+.backend-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.35rem;
+}
+
+.backend-delete {
+  width: fit-content;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  background: rgba(248, 113, 113, 0.08);
+  color: #fca5a5;
+  font: inherit;
+  font-weight: 600;
+}
+
+.backend-toggle:hover {
+  transform: translateY(-1px);
+}
+
+.backend-delete:hover {
+  transform: translateY(-1px);
+}
+
+.backend-delete:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.backend-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.backend-detail-grid article,
+.backend-notes {
+  border-radius: 16px;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  display: grid;
+  gap: 0.3rem;
+}
+
+.backend-detail-grid span,
+.backend-notes span {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.backend-notes p {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.details-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(5, 10, 24, 0.42);
+  backdrop-filter: blur(14px);
+}
+
+.details-modal {
+  width: min(100%, 760px);
+  max-height: min(85vh, 780px);
+  overflow: auto;
+  border-radius: 28px;
+  padding: 1.4rem;
+  border: 1px solid var(--panel-border);
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03)),
+    var(--panel-bg);
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.45);
+  display: grid;
+  gap: 1rem;
+}
+
+.details-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.details-modal-header h3 {
+  font-size: 1.8rem;
+}
+
+.details-modal-close {
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 600;
+}
+
+.details-modal-close:hover {
+  transform: translateY(-1px);
+}
+
+.details-modal-grid article,
+.details-modal-notes {
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .backend-card > span,
 .backend-card p,
 .empty-state,
@@ -662,6 +790,17 @@
 
   .hero-panel {
     min-height: auto;
+    padding: 1.5rem;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .hero-stat {
+    margin-top: 1rem;
   }
 }
 
@@ -676,11 +815,24 @@
     padding: 1.1rem;
   }
 
+  .hero-content {
+    gap: 1rem;
+  }
+
   .field-grid,
   .vehicle-grid,
   .summary-grid,
-  .backend-grid {
+  .backend-grid,
+  .backend-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .details-modal {
+    padding: 1rem;
+  }
+
+  .details-modal-header {
+    flex-direction: column;
   }
 
   .preview-meta,
@@ -698,11 +850,66 @@
     width: 100%;
   }
 
+  .hero-stat,
+  .preview-card,
+  .detail-card,
+  .vehicle-showcase,
+  .summary-panel,
+  .backend-feed {
+    border-radius: 20px;
+  }
+
+  .hero-stat,
+  .preview-card,
+  .detail-card,
+  .vehicle-showcase {
+    padding: 1rem;
+  }
+
+  .hero-stat {
+    margin-top: 0.5rem;
+  }
+
+  .hero-tags {
+    gap: 0.5rem;
+  }
+
+  .hero-tags span,
+  .summary-badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
   .showcase-image-wrap {
-    height: 200px;
+    height: 170px;
+  }
+
+  .showcase-credit {
+    font-size: 0.72rem;
   }
 
   .hero-content h1 {
-    max-width: 12ch;
+    max-width: 100%;
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .hero-copy,
+  .detail-card p,
+  .showcase-copy p {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .showcase-copy strong,
+  .preview-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-panel {
+    gap: 1rem;
+  }
+
+  .registration-form {
+    gap: 1rem;
   }
 }
