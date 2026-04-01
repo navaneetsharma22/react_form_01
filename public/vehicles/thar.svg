@@ -1,0 +1,21 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="40" fill="#091223"/>
+  <path d="M0 520C167 451 315 417 471 418C671 418 834 474 1200 626V700H0V520Z" fill="url(#paint0_linear)"/>
+  <text x="72" y="120" fill="#DDEAFE" font-size="58" font-family="Segoe UI, Arial, sans-serif" letter-spacing="8">MAHINDRA THAR</text>
+  <text x="74" y="175" fill="#8AA0C8" font-size="24" font-family="Segoe UI, Arial, sans-serif" letter-spacing="5">ADVENTURE SERIES</text>
+  <path d="M217 401L321 310H536L619 245H788L843 290H944L1018 366V432H968C957 481 919 518 870 518C821 518 783 481 772 432H510C499 481 461 518 412 518C363 518 325 481 314 432H217V401Z" fill="#CBD7EB"/>
+  <rect x="350" y="327" width="155" height="82" rx="14" fill="#7DB8FF"/>
+  <rect x="532" y="327" width="108" height="82" rx="14" fill="#7DB8FF"/>
+  <rect x="656" y="267" width="126" height="104" rx="14" fill="#7DB8FF"/>
+  <circle cx="412" cy="432" r="71" fill="#10151F"/>
+  <circle cx="412" cy="432" r="35" fill="#8695B4"/>
+  <circle cx="870" cy="432" r="71" fill="#10151F"/>
+  <circle cx="870" cy="432" r="35" fill="#8695B4"/>
+  <rect x="915" y="387" width="56" height="26" rx="9" fill="#FF8A4C"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="600" y1="418" x2="600" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F1F38"/>
+      <stop offset="1" stop-color="#091223"/>
+    </linearGradient>
+  </defs>
+</svg>

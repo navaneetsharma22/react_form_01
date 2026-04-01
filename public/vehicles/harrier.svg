@@ -1,0 +1,21 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="40" fill="#09101F"/>
+  <path d="M1200 0V222C1062 276 926 292 791 270C579 236 434 149 0 93V0H1200Z" fill="url(#paint0_linear)"/>
+  <text x="72" y="120" fill="#F0F6FF" font-size="58" font-family="Segoe UI, Arial, sans-serif" letter-spacing="8">TATA HARRIER</text>
+  <text x="74" y="175" fill="#92A8CC" font-size="24" font-family="Segoe UI, Arial, sans-serif" letter-spacing="5">URBAN SERIES</text>
+  <path d="M166 414L260 339H417L547 264H777L859 307H997L1051 379V432H978C967 481 928 518 879 518C830 518 792 481 781 432H478C467 481 429 518 380 518C331 518 293 481 282 432H166V414Z" fill="#DCE6F8"/>
+  <rect x="292" y="352" width="121" height="63" rx="12" fill="#8FCEFF"/>
+  <rect x="432" y="332" width="138" height="83" rx="14" fill="#8FCEFF"/>
+  <rect x="588" y="280" width="164" height="100" rx="16" fill="#8FCEFF"/>
+  <circle cx="380" cy="432" r="71" fill="#0F141F"/>
+  <circle cx="380" cy="432" r="35" fill="#8595B0"/>
+  <circle cx="879" cy="432" r="71" fill="#0F141F"/>
+  <circle cx="879" cy="432" r="35" fill="#8595B0"/>
+  <rect x="998" y="390" width="41" height="22" rx="8" fill="#38BDF8"/>
+  <defs>
+    <linearGradient id="paint0_linear" x1="1200" y1="0" x2="0" y2="222" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172554"/>
+      <stop offset="1" stop-color="#09101F" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

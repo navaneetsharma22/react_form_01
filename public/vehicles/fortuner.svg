@@ -1,0 +1,16 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="40" fill="#0C1324"/>
+  <circle cx="935" cy="115" r="80" fill="#1E3A8A" fill-opacity="0.55"/>
+  <text x="72" y="120" fill="#F2F6FF" font-size="58" font-family="Segoe UI, Arial, sans-serif" letter-spacing="8">TOYOTA FORTUNER</text>
+  <text x="74" y="175" fill="#92A9D4" font-size="24" font-family="Segoe UI, Arial, sans-serif" letter-spacing="5">EXECUTIVE SERIES</text>
+  <path d="M154 410L235 336H407L522 263H777L908 332H1014L1056 381V432H983C972 482 934 518 884 518C835 518 797 482 785 432H470C458 482 420 518 370 518C321 518 282 482 271 432H154V410Z" fill="#DCE6F8"/>
+  <rect x="268" y="351" width="140" height="65" rx="14" fill="#96CCFF"/>
+  <rect x="431" y="351" width="136" height="65" rx="14" fill="#96CCFF"/>
+  <rect x="589" y="286" width="170" height="95" rx="14" fill="#96CCFF"/>
+  <rect x="787" y="337" width="117" height="44" rx="12" fill="#96CCFF"/>
+  <circle cx="370" cy="432" r="71" fill="#0E1420"/>
+  <circle cx="370" cy="432" r="35" fill="#7E90B5"/>
+  <circle cx="884" cy="432" r="71" fill="#0E1420"/>
+  <circle cx="884" cy="432" r="35" fill="#7E90B5"/>
+  <rect x="997" y="391" width="41" height="22" rx="8" fill="#F59E0B"/>
+</svg>

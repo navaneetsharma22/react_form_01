@@ -1,0 +1,21 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="40" fill="#08121F"/>
+  <path d="M0 0H1200V700H0V0Z" fill="url(#paint0_radial)"/>
+  <text x="72" y="120" fill="#EDF4FF" font-size="58" font-family="Segoe UI, Arial, sans-serif" letter-spacing="8">MAHINDRA SCORPIO</text>
+  <text x="74" y="175" fill="#89A1C9" font-size="24" font-family="Segoe UI, Arial, sans-serif" letter-spacing="5">BOLD SERIES</text>
+  <path d="M181 414L265 322H431L538 254H741L818 291H937L1027 368V433H980C968 482 930 518 882 518C833 518 795 482 784 433H469C457 482 419 518 370 518C321 518 282 482 271 433H181V414Z" fill="#D5DDEE"/>
+  <rect x="298" y="338" width="115" height="73" rx="14" fill="#81BBFF"/>
+  <rect x="433" y="338" width="121" height="73" rx="14" fill="#81BBFF"/>
+  <rect x="572" y="278" width="141" height="92" rx="14" fill="#81BBFF"/>
+  <circle cx="370" cy="433" r="71" fill="#10151E"/>
+  <circle cx="370" cy="433" r="35" fill="#7D8CA8"/>
+  <circle cx="882" cy="433" r="71" fill="#10151E"/>
+  <circle cx="882" cy="433" r="35" fill="#7D8CA8"/>
+  <rect x="949" y="391" width="49" height="24" rx="8" fill="#FB923C"/>
+  <defs>
+    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(936 578) rotate(-151.739) scale(503.254 447.582)">
+      <stop stop-color="#182646"/>
+      <stop offset="1" stop-color="#08121F"/>
+    </radialGradient>
+  </defs>
+</svg>

@@ -1,0 +1,16 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="700" rx="40" fill="#091324"/>
+  <circle cx="216" cy="109" r="95" fill="#14B8A6" fill-opacity="0.18"/>
+  <text x="72" y="120" fill="#F0F7FF" font-size="58" font-family="Segoe UI, Arial, sans-serif" letter-spacing="8">TATA SIERRA</text>
+  <text x="74" y="175" fill="#8BA3CE" font-size="24" font-family="Segoe UI, Arial, sans-serif" letter-spacing="5">FUTURE SERIES</text>
+  <path d="M171 414L254 347H392L531 257H801L878 315H1003L1055 380V432H985C973 482 934 518 884 518C835 518 797 482 786 432H472C460 482 421 518 371 518C322 518 284 482 272 432H171V414Z" fill="#DBE7FA"/>
+  <rect x="278" y="362" width="97" height="54" rx="12" fill="#A2D6FF"/>
+  <rect x="395" y="326" width="163" height="90" rx="14" fill="#A2D6FF"/>
+  <rect x="578" y="272" width="191" height="108" rx="16" fill="#A2D6FF"/>
+  <rect x="793" y="331" width="132" height="49" rx="14" fill="#A2D6FF"/>
+  <circle cx="371" cy="432" r="71" fill="#0D1621"/>
+  <circle cx="371" cy="432" r="35" fill="#8B9BB8"/>
+  <circle cx="884" cy="432" r="71" fill="#0D1621"/>
+  <circle cx="884" cy="432" r="35" fill="#8B9BB8"/>
+  <rect x="1004" y="390" width="34" height="22" rx="8" fill="#2DD4BF"/>
+</svg>
