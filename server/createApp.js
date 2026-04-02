@@ -30,6 +30,14 @@ export function createApp() {
   app.use(cors());
   app.use(express.json());
 
+  function toApiErrorMessage(error, fallbackMessage) {
+    if (error instanceof Error && error.message) {
+      return error.message;
+    }
+
+    return fallbackMessage;
+  }
+
   async function deleteRegistrationById(registrationId, response) {
     try {
       await connectToDatabase();
@@ -45,8 +53,10 @@ export function createApp() {
       }
 
       return response.json({ message: 'Registration deleted successfully.' });
-    } catch {
-      return response.status(500).json({ message: 'Unable to delete registration.' });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: toApiErrorMessage(error, 'Unable to delete registration.') });
     }
   }
 
@@ -58,10 +68,10 @@ export function createApp() {
         message: 'Registration backend is running.',
         database: MONGODB_URI,
       });
-    } catch {
+    } catch (error) {
       response.status(503).json({
         ok: false,
-        message: 'Unable to connect to the registration database.',
+        message: toApiErrorMessage(error, 'Unable to connect to the registration database.'),
       });
     }
   });
@@ -76,8 +86,10 @@ export function createApp() {
           id: registration._id.toString(),
         })),
       );
-    } catch {
-      response.status(500).json({ message: 'Unable to load registrations.' });
+    } catch (error) {
+      response
+        .status(500)
+        .json({ message: toApiErrorMessage(error, 'Unable to load registrations.') });
     }
   });
 
@@ -109,8 +121,10 @@ export function createApp() {
           id: registration._id.toString(),
         },
       });
-    } catch {
-      return response.status(500).json({ message: 'Unable to save registration.' });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: toApiErrorMessage(error, 'Unable to save registration.') });
     }
   });
 
